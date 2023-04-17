@@ -1,10 +1,11 @@
 import "./App.css";
-import { CardList } from "./components/index";
+import { CardList, UserForm } from "./components/index";
 
 function App() {
   return (
     <>
       <CardList />
+      <UserForm title={"Add a new user"} />
     </>
   );
 }

@@ -11,17 +11,12 @@ import {
   Badge,
 } from "@tremor/react";
 
-import { useSelector, useDispatch } from "react-redux";
-import { deleteUser } from "../../store/users/usersSlice";
+import { useAppSelector } from "../../hooks/store";
+import useUserActions from "../../hooks/useUserActions";
 
 const CardList = () => {
-  const data = useSelector((state) => state.users);
-  const dispatch = useDispatch();
-
-  const onHandleDelete = (id) => {
-    dispatch(deleteUser(id));
-    console.log("user deleted");
-  };
+  const data = useAppSelector((state) => state.users);
+  const { onHandleDelete } = useUserActions();
 
   return (
     <Card>
