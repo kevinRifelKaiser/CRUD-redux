@@ -10,10 +10,18 @@ import {
   Title,
   Badge,
 } from "@tremor/react";
-import { useSelector } from "react-redux";
+
+import { useSelector, useDispatch } from "react-redux";
+import { deleteUser } from "../../store/users/usersSlice";
 
 const CardList = () => {
   const data = useSelector((state) => state.users);
+  const dispatch = useDispatch();
+
+  const onHandleDelete = (id) => {
+    dispatch(deleteUser(id));
+    console.log("user deleted");
+  };
 
   return (
     <Card>
@@ -53,7 +61,7 @@ const CardList = () => {
                     />
                   </svg>
                 </button>
-                <button type="button">
+                <button type="button" onClick={() => onHandleDelete(item.id)}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
