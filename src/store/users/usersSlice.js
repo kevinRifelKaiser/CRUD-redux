@@ -40,18 +40,25 @@ export const usersSlice = createSlice({
   initialState,
   reducers: {
     deleteUser: (state, action) => {
-      const usersList = state;
       return state.filter((user) => user.id !== action.payload);
     },
     createUser: (state, actions) => {
       const id = uuidv4();
       const { name, email } = actions.payload;
       const newUser = new User(name, email);
-      return [...state, { id, ...newUser }];
+      state.push({ id, ...newUser });
+    },
+    rollbackUser: (state, actions) => {
+      const isUserAlreadyAdded = state.some(
+        (user) => user.id === actions.payload.id
+      );
+      if (!isUserAlreadyAdded) {
+        state.push(actions.payload);
+      }
     },
   },
 });
 
-export const { deleteUser, createUser } = usersSlice.actions;
+export const { deleteUser, createUser, rollbackUser } = usersSlice.actions;
 
 export default usersSlice.reducer;
